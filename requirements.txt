@@ -1,0 +1,6 @@
+Flask
+pandas
+requests
+werkzeug
+flask_cors
+flask flask-sqlalchemy pyodbc
