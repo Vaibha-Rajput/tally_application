@@ -19,5 +19,7 @@ This project integrates **Flask**, **PostgreSQL**, and **Tally Prime API** to re
 
 ### 🐳 **1. Pull & Run the Docker Image**
 ```sh
-git clone [https://github.com/your-username/tally-flask-app.git](https://github.com/Vaibha-Rajput/tally_application.git)
+
+git clone https://github.com/Vaibha-Rajput/tally_application.git
+cd tally_application
 docker-compose up -d
