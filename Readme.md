@@ -22,4 +22,4 @@ This project integrates **Flask**, **PostgreSQL**, and **Tally Prime API** to re
 
 git clone https://github.com/Vaibha-Rajput/tally_application.git
 cd tally_application
-docker-compose up -d
+docker-compose up --build
