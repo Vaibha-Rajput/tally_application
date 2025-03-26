@@ -1,9 +1,12 @@
 import os
 import pandas as pd
-from flask import Blueprint, request, render_template, redirect, url_for, flash, current_app
+from flask import Blueprint, render_template, redirect, flash
 from werkzeug.utils import secure_filename
-from app.tally_service import send_to_tally
+from flask import request
+from app.tally_service import send_to_tally, fetch_ledgers
+from app.models import DataAudit
 from config import Config
+from datetime import datetime
 
 ledger_bp = Blueprint("ledger", __name__)
 
@@ -22,15 +25,24 @@ def upload_file():
             flash("No selected file")
             return redirect(request.url)
 
-        filename = secure_filename(file.filename)
-        file_path = os.path.join(Config.UPLOAD_FOLDER, filename)
-        file.save(file_path)
-
         # Process CSV file
-        df = pd.read_csv(file_path)
+        df = pd.read_csv(file)
         response = send_to_tally(df)
 
         return render_template("index.html", message=response)
-    print("Current Working Directory:", os.getcwd())  # Debugging
-    print("Template Folder Path:", os.path.join(os.getcwd(), "templates"))
     return render_template("index.html")
+
+
+@ledger_bp.route("/sync-ledgers", methods=["POST"])
+def sync_ledgers():
+    # data = request.get_json()
+    # after_date = data.get("after_date") if data else None
+
+    ledgers = fetch_ledgers("after_date")  # Fetch ledgers from Tally
+
+    return render_template("ledgers.html", ledgers=ledgers)  # Render a new page
+
+@ledger_bp.route("/audit-log", methods=["POST"])
+def audit_log():
+    audits = DataAudit.query.order_by(DataAudit.timestamp.desc()).all()
+    return render_template("audit_log.html", audits=audits)

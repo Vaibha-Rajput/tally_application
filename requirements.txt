@@ -3,4 +3,8 @@ pandas
 requests
 werkzeug
 flask_cors
-flask flask-sqlalchemy pyodbc
+pyodbc
+flask-sqlalchemy
+flask_migrate
+psycopg2
+sqlalchemy-utils

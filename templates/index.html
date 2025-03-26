@@ -9,6 +9,14 @@
         <input type="file" name="file">
         <button type="submit">Upload</button>
     </form>
+    <h2>Or Fetch Ledgers from Tally</h2>
+    <form action="/sync-ledgers" method="post">
+        <button type="submit">Fetch Ledgers</button>
+    </form>
+    <h2>View Information </h2>
+    <form action="/audit-log" method="post">
+        <button type="submit">View Audit</button>
+    </form>
     {% if message %}
         <p>{{ message }}</p>
     {% endif %}
